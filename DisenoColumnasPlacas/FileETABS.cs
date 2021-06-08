@@ -38,6 +38,7 @@ namespace DisenoColumnasPlacas
                 sb.AppendLine(items[i] + ": " + data[i]);
             }
             tx = sb.ToString();
+
             return modeloSap;
         }
 
