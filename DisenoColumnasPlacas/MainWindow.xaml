@@ -1,0 +1,90 @@
+﻿<Window x:Class="DisenoColumnasPlacas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DisenoColumnasPlacas"
+        xmlns:viewmodel ="clr-namespace:DisenoColumnasPlacas.ViewModels" xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <viewmodel:DisenoColumnasViewModel x:Key="viewModell" />
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource viewModell}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Header="Diagrama de Interaccion">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="3" Text="{Binding Path=RutaDI}"/>
+                <Button Grid.Column="3" Content="Examinar" Command="{Binding Path=LeerRutaDeDiagramaCommand}"/>
+                <Button Grid.Column="4" Content="Actualizar Diagrama" Command="{Binding Path=LeerDICommand}"/>
+            </Grid>
+        </GroupBox>
+        <Button Grid.Row="1" Grid.Column="0" Content="Vincular ETABS"  
+                Command="{Binding VincularModeloSapCommand}"/>
+        <ComboBox Grid.Row="1" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaLabelsColumns}"
+                  SelectedItem="{Binding Path=CurrentLabelColumn}"/>
+        <ComboBox Grid.Row="1" Grid.Column="2"
+                  ItemsSource="{Binding Path=ListaNiveles}"
+                  SelectedItem="{Binding Path=CurrentNivel}"/>
+        <Label Grid.Row="1" Grid.Column="3" Content="{Binding Path=CurrentFrame}"/>
+        <ComboBox Grid.Row="1" Grid.Column="4"
+                  ItemsSource="{Binding Path=ListaStations}"
+                  SelectedItem="{Binding Path=CurrentStation}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Content="Combo1: "/>
+        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="Combo2: "/>
+        <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" Content="Combo3: "/>
+        <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" Content="Combo4: "/>
+        <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" Content="Combo5: "/>
+        <ComboBox Grid.Row="2" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaCombos}"
+                  SelectedItem="{Binding Path=CurrentCombo1}"/>
+        <ComboBox Grid.Row="3" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaCombos}"
+                  SelectedItem="{Binding Path=CurrentCombo2}"/>
+        <ComboBox Grid.Row="4" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaCombos}"
+                  SelectedItem="{Binding Path=CurrentCombo3}"/>
+        <ComboBox Grid.Row="5" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaCombos}"
+                  SelectedItem="{Binding Path=CurrentCombo4}"/>
+        <ComboBox Grid.Row="6" Grid.Column="1"
+                  ItemsSource="{Binding Path=ListaCombos}"
+                  SelectedItem="{Binding Path=CurrentCombo5}"/>
+        <Label Grid.Row="2" Grid.Column="2"
+               Content="{Binding Path=ResultadosColumn[0]}"/>
+        <Label Grid.Row="3" Grid.Column="2"
+               Content="{Binding Path=ResultadosColumn[1]}"/>
+        <ComboBox Grid.Row="4" Grid.Column="2"
+                  ItemsSource="{Binding Path=ResultadosColumn}"/>
+        <GroupBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Header="Diagrama de Iteraccion" >
+            <oxy:PlotView x:Name="Grafica" Model="{Binding Path=GraficaEje2}"/>
+        </GroupBox>
+        <Button Grid.Row="6" Grid.Column="3" Content="Definir Diagrama" Click="Button_Click"/>
+    </Grid>
+</Window>
